@@ -10,8 +10,13 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+from os import environ
 from pathlib import Path
+from dotenv import load_dotenv
 from .social_accounts import social_account
+
+# Load env file.
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-uim&ewp(*x1dm6f)dir@l(1cq=mjjdq_r5b84f%lg%ro*7c2fg'
+SECRET_KEY = environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -137,8 +142,8 @@ SITE_ID = 1
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'APP': {
-            'client_id': '437904709313-gcvbnjikr5871fc2s78tdc92qkelr6m2.apps.googleusercontent.com',
-            'secret': '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',
+            'client_id': environ.get("GOOGLE_ID"),
+            'secret': environ.get("GOOGLE_SECRET"),
         },
         'SCOPE': ['profile', 'email'],
         'AUTH_PARAMS': {
@@ -148,14 +153,14 @@ SOCIALACCOUNT_PROVIDERS = {
     },
     'github': {
         "APP": {
-            'client_id': 'a239c93379c5a4f0cfe4',
-            'secret': '0f412ef6b63415c4964e580da9177b52a7505dcd'
+            'client_id': environ.get("GITHUB_ID"),
+            'secret': environ.get("GITHUB_SECRET")
         }
     },
     'facebook': {
         "APP": {
-            'client_id': '987919319137733',
-            'secret': '06e2ec2690d462e19019b827519e98e3'
+            'client_id': environ.get("FACEBOOK_ID"),
+            'secret': environ.get("FACEBOOK_SECRET")
         }
     }
 }
@@ -173,9 +178,6 @@ ALLOWED_HOSTS = [
     'localhost',
     "127.0.0.1",
     "3feb-2409-40c2-1051-1005-6095-aa96-f0a5-18e.ngrok-free.app"
-]
-CSRF_TRUSTED_ORIGINS = [
-    "https://3feb-2409-40c2-1051-1005-6095-aa96-f0a5-18e.ngrok-free.app"
 ]
 
 LOGIN_REDIRECT_URL = "http://localhost:8000/social_auth/loginRedirectURL"
